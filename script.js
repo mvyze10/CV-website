@@ -217,5 +217,32 @@ document.addEventListener('DOMContentLoaded', () => {
             iconDiv.innerHTML = `<span style="font-size: 3.5rem;">${interestEmojis[interestType] || '📌'}</span>`;
         });
     });
+
+    // Role accordion functionality
+    const roleTabButtons = document.querySelectorAll('.role-tab-btn');
+    roleTabButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            const roleTab = this.closest('.role-tab');
+            const roleContent = roleTab.querySelector('.role-content');
+            const isActive = this.classList.contains('active');
+
+            // Close all tabs
+            roleTabButtons.forEach(btn => {
+                btn.classList.remove('active');
+                const content = btn.closest('.role-tab').querySelector('.role-content');
+                content.classList.remove('active');
+                const arrow = btn.querySelector('.role-arrow');
+                arrow.textContent = '▶';
+            });
+
+            // Open clicked tab if it wasn't active
+            if (!isActive) {
+                this.classList.add('active');
+                roleContent.classList.add('active');
+                const arrow = this.querySelector('.role-arrow');
+                arrow.textContent = '▼';
+            }
+        });
+    });
 });
 
